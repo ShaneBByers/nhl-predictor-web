@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'nhl-web-app';
+  pageTitle = 'NHL Predictor';
+  errorMessage = '';
 }
