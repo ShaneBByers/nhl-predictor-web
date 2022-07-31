@@ -10,7 +10,7 @@ import { DatabaseRequest } from "./database-request";
 )
 export class DatabaseService
 {
-    private selectUrl = 'http://www.nhl-predictor.com/select.php'
+    private selectUrl = 'http://www.api.nhl-predictor.com/select.php'
 
     constructor(private httpClient: HttpClient)
     {
