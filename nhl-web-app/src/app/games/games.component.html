@@ -1,0 +1,30 @@
+<div class='card'>
+    <div class='card-header'>
+        GAMES
+    </div>
+    <div class='card-body'>
+        <div class='table-responsive'>
+            <table class='table'
+                *ngIf='games.length'>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Season ID</th>
+                        <th>Home Team ID</th>
+                        <th>Away Team ID</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let game of games'>
+                        <td>{{ game.ID }}</td>
+                        <td>{{ game.SEASON_ID }}</td>
+                        <td>{{ game.HOME_TEAM_ID }}</td>
+                        <td>{{ game.AWAY_TEAM_ID }}</td>
+                        <td>{{ game.DATE }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

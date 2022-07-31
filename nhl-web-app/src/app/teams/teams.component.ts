@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DatabaseRequest } from '../database/database-request';
-import { DatabaseWhere } from '../database/database-where';
 import { DatabaseService } from '../database/database.service';
 import { ITeam } from './team';
 
@@ -28,7 +27,6 @@ export class TeamsComponent implements OnInit, OnDestroy
         next: teams =>
         {
           this.teams = teams
-          console.log(this.teams)
         }
       }
     )
