@@ -1,0 +1,65 @@
+<div class='card'>
+    <div class='card-header'>
+        SKATER STATS
+    </div>
+    <div class='card-body'>
+        <div class='table-responsive'>
+            <table class='table'
+                *ngIf='skaterStats.length'>
+                <thead>
+                    <tr>
+                        <th>Game ID</th>
+                        <th>Team ID</th>
+                        <th>Player ID</th>
+                        <th>Goals</th>
+                        <th>Assists</th>
+                        <th>Shots</th>
+                        <th>PP Goals</th>
+                        <th>PP Assists</th>
+                        <th>SH Goals</th>
+                        <th>SH Assists</th>
+                        <th>PIM</th>
+                        <th>Faceoffs Taken</th>
+                        <th>Faceoffs Won</th>
+                        <th>Takeaways</th>
+                        <th>Giveaways</th>
+                        <th>Blocked Shots</th>
+                        <th>Hits</th>
+                        <th>TOI (sec.)</th>
+                        <th>Even Strength TOI (sec.)</th>
+                        <th>PP TOI (sec.)</th>
+                        <th>SH TOI (sec.)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let singleSkaterStats of skaterStats'>
+                        <td>{{ singleSkaterStats.GAME_ID }}</td>
+                        <td>{{ singleSkaterStats.TEAM_ID }}</td>
+                        <td>{{ singleSkaterStats.PLAYER_ID }}</td>
+                        <td>{{ singleSkaterStats.GOALS }}</td>
+                        <td>{{ singleSkaterStats.ASSISTS }}</td>
+                        <td>{{ singleSkaterStats.SHOTS }}</td>
+                        <td>{{ singleSkaterStats.PP_GOALS }}</td>
+                        <td>{{ singleSkaterStats.PP_ASSISTS }}</td>
+                        <td>{{ singleSkaterStats.SH_GOALS }}</td>
+                        <td>{{ singleSkaterStats.SH_ASSISTS }}</td>
+                        <td>{{ singleSkaterStats.PIM }}</td>
+                        <td>{{ singleSkaterStats.FACEOFF_TAKEN }}</td>
+                        <td>{{ singleSkaterStats.FACEOFF_WINS }}</td>
+                        <td>{{ singleSkaterStats.TAKEAWAYS }}</td>
+                        <td>{{ singleSkaterStats.GIVEAWAYS }}</td>
+                        <td>{{ singleSkaterStats.BLOCKED_SHOTS }}</td>
+                        <td>{{ singleSkaterStats.HITS }}</td>
+                        <td>{{ singleSkaterStats.TOI_SEC }}</td>
+                        <td>{{ singleSkaterStats.EVEN_TOI_SEC }}</td>
+                        <td>{{ singleSkaterStats.PP_TOI_SEC }}</td>
+                        <td>{{ singleSkaterStats.SH_TOI_SEC }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-center" *ngIf="skaterStats.length == 0">
+            <mat-spinner></mat-spinner>
+        </div>
+    </div>
+</div>

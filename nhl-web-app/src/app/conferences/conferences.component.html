@@ -1,0 +1,31 @@
+<div class='card'>
+    <div class='card-header'>
+        CONFERENCES
+    </div>
+    <div class='card-body'>
+        <div class='table-responsive'>
+            <table class='table'
+                *ngIf='conferences.length'>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Short Name</th>
+                        <th>Abbreviation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let conference of conferences'>
+                        <td>{{ conference.ID }}</td>
+                        <td>{{ conference.NAME }}</td>
+                        <td>{{ conference.SHORT_NAME }}</td>
+                        <td>{{ conference.ABBREVIATION }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-center" *ngIf="conferences.length == 0">
+            <mat-spinner></mat-spinner>
+        </div>
+    </div>
+</div>

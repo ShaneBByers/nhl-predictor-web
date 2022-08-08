@@ -1,0 +1,43 @@
+<div class='card'>
+    <div class='card-header'>
+        PLAYERS
+    </div>
+    <div class='card-body'>
+        <div class='table-responsive'>
+            <table class='table'
+                *ngIf='players.length'>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Full Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Birth Date</th>
+                        <th>Height (in.)</th>
+                        <th>Weight (lbs.)</th>
+                        <th>Shoots/Catches</th>
+                        <th>Position</th>
+                        <th>Position Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let player of players'>
+                        <td>{{ player.ID }}</td>
+                        <td>{{ player.FULL_NAME }}</td>
+                        <td>{{ player.FIRST_NAME }}</td>
+                        <td>{{ player.LAST_NAME }}</td>
+                        <td>{{ player.BIRTHDATE }}</td>
+                        <td>{{ player.HEIGHT_INCHES }}</td>
+                        <td>{{ player.WEIGHT }}</td>
+                        <td>{{ player.SHOOTS_CATCHES }}</td>
+                        <td>{{ player.POSITION }}</td>
+                        <td>{{ player.POSITION_TYPE }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-center" *ngIf="players.length == 0">
+            <mat-spinner></mat-spinner>
+        </div>
+    </div>
+</div>

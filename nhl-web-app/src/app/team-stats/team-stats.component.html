@@ -1,0 +1,45 @@
+<div class='card'>
+    <div class='card-header'>
+        TEAM STATS
+    </div>
+    <div class='card-body'>
+        <div class='table-responsive'>
+            <table class='table'
+                *ngIf='teamStats.length'>
+                <thead>
+                    <tr>
+                        <th>Game ID</th>
+                        <th>Team ID</th>
+                        <th>Goals</th>
+                        <th>Shots</th>
+                        <th>PP Goals</th>
+                        <th>PP Opportunities</th>
+                        <th>PIM</th>
+                        <th>Blocked Shots</th>
+                        <th>Takeaways</th>
+                        <th>Giveaways</th>
+                        <th>Hits</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let singleTeamStats of teamStats'>
+                        <td>{{ singleTeamStats.GAME_ID }}</td>
+                        <td>{{ singleTeamStats.TEAM_ID }}</td>
+                        <td>{{ singleTeamStats.GOALS }}</td>
+                        <td>{{ singleTeamStats.SHOTS }}</td>
+                        <td>{{ singleTeamStats.PP_GOALS }}</td>
+                        <td>{{ singleTeamStats.PP_OPPORTUNITIES }}</td>
+                        <td>{{ singleTeamStats.PIM }}</td>
+                        <td>{{ singleTeamStats.BLOCKED_SHOTS }}</td>
+                        <td>{{ singleTeamStats.TAKEAWAYS }}</td>
+                        <td>{{ singleTeamStats.GIVEAWAYS }}</td>
+                        <td>{{ singleTeamStats.HITS }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-center" *ngIf="teamStats.length == 0">
+            <mat-spinner></mat-spinner>
+        </div>
+    </div>
+</div>

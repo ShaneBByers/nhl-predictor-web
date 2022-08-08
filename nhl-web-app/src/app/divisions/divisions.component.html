@@ -1,0 +1,31 @@
+<div class='card'>
+    <div class='card-header'>
+        DIVISIONS
+    </div>
+    <div class='card-body'>
+        <div class='table-responsive'>
+            <table class='table'
+                *ngIf='divisions.length'>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Conference ID</th>
+                        <th>Name</th>
+                        <th>Abbreviation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let division of divisions'>
+                        <td>{{ division.ID }}</td>
+                        <td>{{ division.CONFERENCE_ID }}</td>
+                        <td>{{ division.NAME }}</td>
+                        <td>{{ division.ABBREVIATION }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-center" *ngIf="divisions.length == 0">
+            <mat-spinner></mat-spinner>
+        </div>
+    </div>
+</div>
