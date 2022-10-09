@@ -1,44 +1,56 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
 import { catchError, tap, Observable, throwError } from "rxjs";
+import { IDatabaseCount } from "./database-count";
 import { DatabaseRequest } from "./database-request";
+import { DatabaseWhere } from "./database-where";
 
-@Injectable(
-    {
-        providedIn: 'root'
-    }
-)
 export class DatabaseService
 {
     private selectUrl = 'http://www.api.nhl-predictor.com/select.php'
 
-    constructor(private httpClient: HttpClient)
+    constructor(private httpClient: HttpClient,
+                private tableName: string,
+                private pageSize: number = 100,
+                public whereList: DatabaseWhere[] = [])
     {
-        
+
     }
 
-    getData<T>(request: DatabaseRequest): Observable<T[]>
+    getPageCount(): Observable<IDatabaseCount[]>
     {
-        console.log(request.queryList)
+        let request = new DatabaseRequest();
+        request.setCountQuery(this.tableName, this.whereList);
+        return this.postRequest<IDatabaseCount[]>(request);
+    }
+
+    getDataForPage<T>(page: number): Observable<T[]>
+    {
+        let startIndex = (page - 1) * this.pageSize;
+        let request = new DatabaseRequest();
+        request.setQuery(this.tableName, startIndex, this.pageSize, this.whereList);
+        return this.postRequest<T[]>(request);
+    }
+
+    private postRequest<T>(request: DatabaseRequest): Observable<T>
+    {
+        console.log(request.queryList[0])
         let body: string = JSON.stringify(request)
-        return this.httpClient.request<T[]>("POST", this.selectUrl, { body: body })
+        return this.httpClient.request<T>("POST", this.selectUrl, { body: body })
         .pipe(
             catchError(this.handleError)
         );
     }
 
-    handleError(err: HttpErrorResponse): Observable<never>
+    private handleError(err: HttpErrorResponse): Observable<never>
     {
-        // in a real world app, we may send the server to some remote logging infrastructure
-        // instead of just logging it to the console
         let errorMessage = '';
-        if (err.error instanceof ErrorEvent) {
-        // A client-side or network error occurred. Handle it accordingly.
-        errorMessage = `An error occurred: ${err.error.message}`;
-        } else {
-        // The backend returned an unsuccessful response code.
-        // The response body may contain clues as to what went wrong,
-        errorMessage = `Server returned code: ${err.status}, error message is: ${err.error.text}`;
+        if (err.error instanceof ErrorEvent) 
+        {
+            errorMessage = `An error occurred: ${err.error.message}`;
+        } 
+        else 
+        {
+            errorMessage = `Server returned code: ${err.status}, error message is: ${err.error.text}`;
         }
         console.error(errorMessage);
         return throwError(() => errorMessage);

@@ -1,32 +1,64 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DatabaseRequest } from '../database/database-request';
 import { DatabaseService } from '../database/database.service';
 import { IPlayer } from './player';
 
 @Component({
   selector: 'app-players',
-  templateUrl: './players.component.html',
-  styleUrls: ['./players.component.css']
+  templateUrl: './players.component.html'
 })
 export class PlayersComponent implements OnInit 
 {
-  players: IPlayer[] = []
-  playersSubscription!: Subscription
+  pages: number[];
+  players: IPlayer[] = [];
 
-  constructor(private databaseService: DatabaseService) 
+  pagesSubscription!: Subscription;
+  playersSubscription!: Subscription;
+
+  private databaseService: DatabaseService;
+  private pageSize = 100;
+
+  constructor(httpClient: HttpClient) 
   { 
-
+    this.pages = [1];
+    this.databaseService = new DatabaseService(httpClient, "PLAYERS", this.pageSize);
   }
 
   ngOnInit(): void 
   {
-    const request = new DatabaseRequest("PLAYERS")
-    this.playersSubscription = this.databaseService.getData<IPlayer>(request).subscribe(
+    this.pagesSubscription = this.databaseService.getPageCount().subscribe(
+      {
+        next: databaseCountList =>
+        {
+          let pageCount = Math.ceil(databaseCountList[0].NUM_ROWS / this.pageSize);
+          let pages = []
+          for (let i = 1; i < pageCount + 1; i++)
+          {
+            pages.push(i);
+          }
+          this.pages = pages;
+        }
+      }
+    );
+    this.playersSubscription = this.databaseService.getDataForPage<IPlayer>(1).subscribe(
       {
         next: players =>
         {
-          this.players = players
+          this.players = players;
+        }
+      }
+    );
+  }
+
+  goToPage(page: number): void
+  {
+    this.players = []
+    this.playersSubscription = this.databaseService.getDataForPage<IPlayer>(page).subscribe(
+      {
+        next: players =>
+        {
+          this.players = players;
         }
       }
     )
@@ -34,6 +66,7 @@ export class PlayersComponent implements OnInit
 
   ngOnDestroy(): void
   {
-    this.playersSubscription.unsubscribe()
+    this.pagesSubscription.unsubscribe();
+    this.playersSubscription.unsubscribe();
   }
 }
